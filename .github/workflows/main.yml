@@ -35,5 +35,5 @@ jobs:
             IMAGE_TAG: latest
           run: |
             docker build -t test-repository .
-            docker tag test-repository:latest ${{ACCOUNT_ID}}.dkr.ecr.eu-central-1.amazonaws.com/test-repository:latest
-            docker push ${{ACCOUNT_ID}}.dkr.ecr.eu-central-1.amazonaws.com/test-repository:latest
+            docker tag test-repository:latest ${{secrets.ACCOUNT_ID}}.dkr.ecr.eu-central-1.amazonaws.com/test-repository:latest
+            docker push ${{secrets.ACCOUNT_ID}}.dkr.ecr.eu-central-1.amazonaws.com/test-repository:latest
