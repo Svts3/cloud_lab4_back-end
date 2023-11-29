@@ -31,8 +31,7 @@ jobs:
           id: build-image
           env:
             ECR_REPOSITORY: back-end-repository
-            IMAGE_NAME: back-end-image
           run: |
-            docker build -t $IMAGE_NAME .
-            docker tag $IMAGE_NAME:latest ${{secrets.ACCOUNT_ID}}.dkr.ecr.eu-central-1.amazonaws.com/$IMAGE_NAME:latest
-            docker push ${{secrets.ACCOUNT_ID}}.dkr.ecr.eu-central-1.amazonaws.com/$IMAGE_NAME:latest
+            docker build -t $ECR_REPOSITORY .
+            docker tag $ECR_REPOSITORY:latest ${{secrets.ACCOUNT_ID}}.dkr.ecr.eu-central-1.amazonaws.com/$ECR_REPOSITORY:latest
+            docker push ${{secrets.ACCOUNT_ID}}.dkr.ecr.eu-central-1.amazonaws.com/$ECR_REPOSITORY:latest
