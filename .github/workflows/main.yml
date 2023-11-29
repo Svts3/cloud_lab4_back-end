@@ -5,7 +5,9 @@ on:
     branches: main
   repository_dispatch:
     types: [update-backend]
-
+permissions:
+  id-token: write
+  contents: read
 jobs:
   backend-update:
     runs-on: ubuntu-latest
