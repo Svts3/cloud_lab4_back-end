@@ -1,0 +1,40 @@
+name: Backend Update
+
+on:
+  push:
+    branches: main
+  repository_dispatch:
+    types: [update-backend]
+
+jobs:
+  backend-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Backend Repo
+        uses: actions/checkout@v2
+     
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3.13.0
+        with:
+          java-version: 17
+          
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+      
+      - name: Amazon ECR Login Action for GitHub Actions
+        uses: aws-actions/amazon-ecr-login@v2
+          
+      - name: Install Docker
+        run: |
+          sudo apt install docker
+      - name: Build and Push Docker Image to ECR
+        run: |
+          aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin ${{secrets.ACCOUNT_ID}}.dkr.ecr.eu-central-1.amazonaws.com
+          docker build -t back-end-image .
+          docker tag back-end-repository:latest ${{secrets.ACCOUNT_ID}}.dkr.ecr.eu-central-1.amazonaws.com/back-end-repository:latest
+          docker push ${{secrets.ACCOUNT_ID}}.dkr.ecr.eu-central-1.amazonaws.com/back-end-repository:latest
