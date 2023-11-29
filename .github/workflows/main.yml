@@ -37,6 +37,6 @@ jobs:
             docker push ${{secrets.ACCOUNT_ID}}.dkr.ecr.eu-central-1.amazonaws.com/$ECR_REPOSITORY:latest
         - name: Update service
           if: github.ref == 'refs/heads/main'
-          run: aws ecs update-service -- cluster back-end-cluster -- service back-end-service -- force-new-deployment
+          run: aws ecs update-service --cluster back-end-cluster --service back-end-service --force-new-deployment
           
             
