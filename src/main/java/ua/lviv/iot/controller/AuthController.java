@@ -24,9 +24,9 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return "test";
+    @GetMapping("/health-check")
+    public HttpStatus healthCheck(){
+        return HttpStatus.OK;
     }
 
     @PostMapping("/register")

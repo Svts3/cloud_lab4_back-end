@@ -18,7 +18,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(httpRequests->{
-           httpRequests.requestMatchers("/register").permitAll().anyRequest().authenticated();
+           httpRequests.requestMatchers("/register", "/health-check").permitAll().anyRequest().authenticated();
         });
         http.httpBasic(httpBasic->{
            httpBasic.init(http);
