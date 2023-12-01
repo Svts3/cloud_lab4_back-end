@@ -29,6 +29,11 @@ public class AuthController {
         return HttpStatus.OK;
     }
 
+    @GetMapping("/test")
+    public String test(){
+        return "test";
+    }
+
     @PostMapping("/register")
     public ResponseEntity<String>register(@RequestBody OwnerDTO ownerDTO) throws Exception {
         if(ownerService.existsByEmail(ownerDTO.getEmail())){
